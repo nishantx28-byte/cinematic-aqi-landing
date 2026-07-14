@@ -4,7 +4,7 @@ import { ArrowRight, Mail, Lock } from "lucide-react";
 
 type Mode = "signin" | "signup";
 
-export function AuthCard() {
+export function AuthCard({ onSignupSuccess }: { onSignupSuccess?: (name: string) => void } = {}) {
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +46,9 @@ export function AuthCard() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            if (mode === "signup") {
+              onSignupSuccess?.(name);
+            }
           }}
           className="flex flex-col gap-4"
         >
